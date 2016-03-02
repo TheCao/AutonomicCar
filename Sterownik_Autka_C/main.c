@@ -30,10 +30,9 @@ int main(void)
 	sei();         // globalne zezwolenie na przerwania
 	
 	hcsr_init(); 
-	pwm_init();
 	vnh3sp30_init();
 	
-	OCR0 = 0;
+	OCR0 = 130; // 0 dla 5 V
 	
 	// testy silnika
 	while(1)

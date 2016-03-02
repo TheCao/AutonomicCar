@@ -35,16 +35,7 @@ void triger(void)
 	_delay_us(10);    //wymagane 10 uS stanu wysokiego
 	PORTD &= ~(1<<PD5);  //wystawienie zera na TRIG
 }
-void pwm_init(void)
-{
-	// initialize timer0 in PWM mode
-	TCCR0 |= (1<<WGM00)|(1<<COM01)|(1<<WGM01)|(1<<COM00); // Tryb Fast PWM, Set OC0 on compare match
-	TCCR0 |= (1<<CS01); // preskaler 8, sterowanie za pomoc¹ OCR0 = (0-255)
 
-	// make sure to make OC0 pin (pin PB3 for atmega32) as output pin
-	DDRB |= (1<<PB3);
-	PORTB |= (1<<PB3);
-}
 void silnik_lewo(void)
 {
 	PORTD |= INB;
@@ -81,6 +72,15 @@ void hcsr_init(void)
 
 void vnh3sp30_init()
 {
+	// PWM Do sterownika
+	// initialize timer0 in PWM mode
+	TCCR0 |= (1<<WGM00)|(1<<COM01)|(1<<WGM01)|(1<<COM00); // Tryb Fast PWM, Set OC0 on compare match
+	TCCR0 |= (1<<CS01); // preskaler 8, sterowanie za pomoc¹ OCR0 = (0-255)
+
+	// make sure to make OC0 pin (pin PB3 for atmega32) as output pin
+	DDRB |= (1<<PB3);
+	PORTB |= (1<<PB3);
+	
 	// ustawienie sterownika w tryb bez sprawdzania b³êdów
 	//DiagA PC1
 	//DiagB PC0
